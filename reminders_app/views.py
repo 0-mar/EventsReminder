@@ -1,14 +1,27 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 
 from django.contrib.auth import authenticate, login
 from .forms import LoginForm
+from .models import Events
 
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the reminders index.")
+    all_events = Events.objects.all()
+
+    return render(request, 'reminders_app/index.html', {"events": all_events})
 
 
+def event_detail(request, event):
+    evt = get_object_or_404(Events, slug=event)
+    return render(request, 'reminders_app/event_detail.html', {"event": evt})
+
+
+# +-------------------------------------+
+# |*************************************|
+# |********* DEPRECATED ****************|
+# |*************************************|
+# +-------------------------------------+
 def user_login(request):
     form = None
 

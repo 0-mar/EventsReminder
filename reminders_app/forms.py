@@ -9,6 +9,7 @@ class LoginForm(forms.Form):
 
 
 # Needed to add bootstrap classes to the LoginView
+# TODO: Add bootstrap classes
 class CustomLoginForm(AuthenticationForm):
 
     def __init__(self, *args, **kwargs):

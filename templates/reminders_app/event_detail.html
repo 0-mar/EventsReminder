@@ -1,0 +1,24 @@
+{% extends "reminders_app/base.html" %}
+
+{% block title %}
+    {{ event.title }}
+{% endblock %}
+
+{% block content %}
+    <div class="event-detail">
+        <div class="col-12 text-center">
+            <h1>{{ event.title }}</h1>
+        </div>
+        <div class="col-12">
+            <h2>{{ event.date }},
+                {% if event.time %}
+                    {{ event.time }}
+                {% endif %}
+            </h2>
+        </div>
+
+        <div class="col-12">
+            {{ event.description }}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,44 @@
+body {
+    min-height: 100vh;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+
+
+#navbar {
+    background-color: #231955
+}
+
+#main-container {
+    background-color: #1F4690;
+    min-height: calc(100vh - 106px);
+}
+
+
+.event-card {
+    background-color: white;
+    border: 4px solid #231955;
+    border-radius: 5px;
+
+    color: black;
+    padding: 0.5rem;
+}
+
+.event-card:hover {
+    background-color: rgb(240, 240, 240);
+}
+
+.event-detail {
+    background-color: white;
+    border: 4px solid #231955;
+    border-radius: 5px;
+
+    color: black;
+    padding: 0.5rem;
+    width: calc(50vw);
+    height: calc(50vh - 106px);
+    margin: auto;
+}

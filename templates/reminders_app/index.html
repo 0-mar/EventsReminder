@@ -1,10 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "reminders_app/base.html" %}
 
-</body>
-</html>
+{% block title %}
+    Events reminder
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+    {% for event in events %}
+        <a href="{{ event.get_absolute_url }}">
+            <div class="event-card">
+                <div class="row">
+                    <div class="col-6">
+                        <h2>{{ event.title }}</h2>
+                    </div>
+                    <div class="col">
+                        <h2>{{ event.date }}</h2>
+                    </div>
+                    {% if event.time %}
+                    <div class="col">
+                        <h2>{{ event.time }}</h2>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="row pt-3">
+                    {{ event.description|truncatewords:30|linebreaks }}
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+    </div>
+{% endblock %}

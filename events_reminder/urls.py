@@ -23,7 +23,7 @@ from reminders_app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('reminders/', include('reminders_app.urls')),
-    path('login/', views.user_login, name='login'),
-    #path('login/', LoginView.as_view(authentication_form=CustomLoginForm), name='login'),
+    path('reminders/', include('reminders_app.urls', namespace='reminders_app')),
+    # path('login/', views.user_login, name='login'),   # deprecated
+    path('login/', LoginView.as_view(authentication_form=CustomLoginForm), name='login'),
 ]
