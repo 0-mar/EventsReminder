@@ -11,20 +11,6 @@
 </head>
 <body>
     <header class="hero">
-        <!--<nav id=navbar class="navbar navbar-expand-lg">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#"><img id="logo" height="80" src="{#% static "images/logo.png" %#}" alt="Logo"/><span class="text-white">Events reminder</span></a>
-                <a class="nav-item nav-link" href="#">Add Event</a>
-                <div class="justify-content-end">
-                    <p class="text-white">Welcome, {#  #}{ request.user }}</p>
-                    <a href="{#% url "logout" %#}">Logout</a>
-                </div>
-            </div>
-        </nav>-->
-
-
-
-
         <nav id="navigation-bar" class="navbar navbar-expand-lg">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#"><img id="logo" height="80" src="{% static "images/logo.png" %}" alt="Logo"/><span class="text-white">Events reminder</span></a>
@@ -34,7 +20,7 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <div class="navbar-nav ps-5">
-                        <a class="nav-link navbar-btn rounded" href="#">Add Event</a>
+                        <a class="nav-link navbar-btn rounded" href="{% url "reminders_app:add_event" %}">Add Event</a>
                     </div>
                     <div class="navbar-nav ms-auto">
                         <div class="nav-item justify-content-end">
@@ -45,15 +31,17 @@
                 </div>
             </div>
         </nav>
-
-
-
-
-
     </header>
 
     <main>
         <div id="main-container" class="container-fluid py-3">
+            <div id="messagesBox" class="container">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div{% if message.tags %} class=" alert alert-{{ message.tags }}"{% endif %} role="alert">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            </div>
             {% block content %}
             {% endblock %}
         </div>

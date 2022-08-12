@@ -6,5 +6,6 @@ app_name = 'reminders_app'
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('event/<slug:event>/', views.event_detail, name='event_detail')
+    path('event/<slug:event>/', views.event_detail, name='event_detail'),
+    path('add-event/', views.add_event, name='add_event'),
 ]

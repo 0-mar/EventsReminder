@@ -46,3 +46,11 @@ a {
     height: calc(50vh - 106px);
     margin: auto;
 }
+
+.content-container {
+    background-color: white;
+    border: 4px solid #231955;
+    border-radius: 5px;
+
+    color: #231955;
+}

@@ -1,11 +1,7 @@
 from django.contrib.auth.forms import AuthenticationForm
-from django import forms
+from django.forms import ModelForm
 
-
-# Simple form for user login
-class LoginForm(forms.Form):
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput)
+from .models import Events
 
 
 # Needed to add bootstrap classes to the LoginView
@@ -20,3 +16,9 @@ class CustomLoginForm(AuthenticationForm):
         self.fields['password'].widget.attrs.update(
             {'class': 'my-password-class'}
         )
+
+
+class EventForm(ModelForm):
+    class Meta:
+        model = Events
+        fields = ['title', 'description', 'date', 'time']
