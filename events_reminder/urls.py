@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView
 
 from reminders_app.forms import CustomLoginForm
 from reminders_app import views
@@ -24,6 +24,6 @@ from reminders_app import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('reminders/', include('reminders_app.urls', namespace='reminders_app')),
-    # path('login/', views.user_login, name='login'),   # deprecated
     path('login/', LoginView.as_view(authentication_form=CustomLoginForm), name='login'),
+    path('logout/', LogoutView.as_view(), name='logout'),
 ]
