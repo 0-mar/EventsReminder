@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
+from slugify import slugify
+
 from .models import Events
 from .forms import EventForm
 
@@ -30,11 +32,10 @@ def add_event(request):
             new_event = event_form.save(commit=False)
             new_event.user = request.user
 
-            # generate a slug
-            # TODO: must be unique and somehow only from numbers and hyphens
-            words = new_event.title.split()
-            slug = "-".join(words)
-
+            # generate a slug from the title
+            slug = slugify(new_event.title)
+            if len(slug) > 255:
+                slug = slug[:255]
             new_event.slug = slug
             new_event.save()
 
@@ -45,4 +46,12 @@ def add_event(request):
         return render(request, 'reminders_app/add_event.html', {"event_form": event_form})
 
 
+@login_required
+def delete_event(request):
+    if request.method == "POST":
+        event_id = request.POST["event_id"]
+        event = Events.objects.get(pk=event_id, user=request.user)
+        event.delete()
+
+        return redirect("reminders_app:index")
 

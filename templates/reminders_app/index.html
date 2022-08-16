@@ -5,28 +5,62 @@
 {% endblock %}
 
 {% block content %}
+
     <div class="container">
     {% for event in events %}
-        <a href="{{ event.get_absolute_url }}">
-            <div class="event-card">
-                <div class="row">
-                    <div class="col-6">
-                        <h2>{{ event.title }}</h2>
+        <!-- Modal -->
+        <div class="modal fade" id="deleteEventModal{{ forloop.counter0 }}" tabindex="-1" aria-labelledby="deleteEventModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Delete Event</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="col">
-                        <h2>{{ event.date }}</h2>
+                    <div class="modal-body">
+                        Are you sure you want to delete this event?
                     </div>
-                    {% if event.time %}
-                    <div class="col">
-                        <h2>{{ event.time }}</h2>
+                    <div class="modal-footer">
+                        <form method="post" action="{% url "reminders_app:delete_event" %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="event_id" value="{{ event.id }}">
+                            <input type="submit" class="btn btn-danger" value="Delete">
+                        </form>
                     </div>
-                    {% endif %}
-                </div>
-                <div class="row pt-3">
-                    {{ event.description|truncatewords:30|linebreaks }}
                 </div>
             </div>
-        </a>
+        </div>
+
+
+
+
+
+        <div class="row event-card">
+            <div class="col-11 event-card-content">
+                <a href="{{ event.get_absolute_url }}">
+                    <div class="row">
+                        <div class="col-6">
+                            <h2>{{ event.title }}</h2>
+                        </div>
+                        <div class="col">
+                            <h2>{{ event.date }}</h2>
+                        </div>
+                        {% if event.time %}
+                            <div class="col">
+                                <h2>{{ event.time }}</h2>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="row pt-3">
+                        {{ event.description|truncatewords:30|linebreaks }}
+                    </div>
+                </a>
+            </div>
+            <div class="col-1">
+                <button type="button" class="cleared" data-bs-toggle="modal" data-bs-target="#deleteEventModal{{ forloop.counter0 }}">
+                    <i class="fa-regular fa-circle-xmark icon xmark"></i>
+                </button>
+            </div>
+        </div>
     {% endfor %}
     </div>
 {% endblock %}

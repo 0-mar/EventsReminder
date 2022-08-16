@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'reminders_app.apps.RemindersAppConfig'
+    'reminders_app.apps.RemindersAppConfig',
+    'fontawesomefree'
 ]
 
 MIDDLEWARE = [
