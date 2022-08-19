@@ -17,4 +17,7 @@ class Events(models.Model):
 
         Useful when you need the URL for <a href>, for example.
         """
-        return reverse('reminders_app:event_detail', args=[self.slug, ])
+        return reverse('reminders_app:event_detail', args=[self.id, self.slug, ])
+
+    def __str__(self):
+        return self.title + "|" + self.slug + "|" + str(self.date)

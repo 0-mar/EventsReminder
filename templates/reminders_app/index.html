@@ -30,10 +30,6 @@
             </div>
         </div>
 
-
-
-
-
         <div class="row event-card">
             <div class="col-11 event-card-content">
                 <a href="{{ event.get_absolute_url }}">
@@ -56,9 +52,18 @@
                 </a>
             </div>
             <div class="col-1">
+                <div class="row">
                 <button type="button" class="cleared" data-bs-toggle="modal" data-bs-target="#deleteEventModal{{ forloop.counter0 }}">
                     <i class="fa-regular fa-circle-xmark icon xmark"></i>
                 </button>
+                </div>
+                <div class="row align-self-end">
+                    <a href="{% url "reminders_app:edit_event" event_id=event.id event_slug=event.slug %}">
+                <button type="button" class="cleared">
+                    <i class="fa-solid fa-file-pen icon"></i>
+                </button>
+                    </a>
+                </div>
             </div>
         </div>
     {% endfor %}

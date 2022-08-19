@@ -16,8 +16,8 @@ def index(request):
 
 
 @login_required
-def event_detail(request, event):
-    evt = get_object_or_404(Events, slug=event, user=request.user)
+def event_detail(request, event_id, event_slug):
+    evt = get_object_or_404(Events, pk=event_id, slug=event_slug, user=request.user)
     return render(request, 'reminders_app/event_detail.html', {"event": evt})
 
 
@@ -33,7 +33,7 @@ def add_event(request):
             new_event.user = request.user
 
             # generate a slug from the title
-            slug = slugify(new_event.title)
+            slug = slugify(new_event.title, max_length=255)
             if len(slug) > 255:
                 slug = slug[:255]
             new_event.slug = slug
@@ -55,3 +55,32 @@ def delete_event(request):
 
         return redirect("reminders_app:index")
 
+
+@login_required
+def edit_event(request, event_id, event_slug):
+    evt = get_object_or_404(Events, pk=event_id, slug=event_slug, user=request.user)
+
+    if request.method == "POST":
+        event_form = EventForm(data=request.POST)
+        if event_form.is_valid():
+            # update the existing Events object
+            evt.title = event_form.cleaned_data["title"]
+            evt.description = event_form.cleaned_data["description"]
+            evt.date = event_form.cleaned_data["date"]
+            if event_form.cleaned_data["time"]:
+                evt.time = event_form.cleaned_data["time"]
+
+            # update the slug if title was changed
+            slug = slugify(evt.title, max_length=255)
+            if len(slug) > 255:
+                slug = slug[:255]
+            evt.slug = slug
+            # save the changes into DB
+            evt.save()
+
+            messages.success(request, 'Event edited successfully.')
+            return redirect(evt, args=(evt.id, evt.slug))
+
+    else:
+        event_form = EventForm(instance=evt)
+        return render(request, 'reminders_app/edit_event.html', {"event_form": event_form})

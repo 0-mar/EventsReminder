@@ -4,7 +4,7 @@ Simple web app for reminding events built with Django framework.
 </p>
 <h2>Installation instructions</h2>
 <p>
-Clone this repository via <code>git clone ...</code> command.
+Clone this repository via <code>git clone https://github.com/0-mar/EventsReminder.git</code> command.
 </p>
 <h3>Linux only</h3>
 <p>
