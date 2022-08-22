@@ -5,33 +5,12 @@
 {% endblock %}
 
 {% block content %}
+    {% include "reminders_app/modals/remove_event_modal.html" %}
 
     <div class="container">
     {% for event in events %}
-        <!-- Modal -->
-        <div class="modal fade" id="deleteEventModal{{ forloop.counter0 }}" tabindex="-1" aria-labelledby="deleteEventModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Delete Event</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        Are you sure you want to delete this event?
-                    </div>
-                    <div class="modal-footer">
-                        <form method="post" action="{% url "reminders_app:delete_event" %}">
-                            {% csrf_token %}
-                            <input type="hidden" name="event_id" value="{{ event.id }}">
-                            <input type="submit" class="btn btn-danger" value="Delete">
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <div class="row event-card">
-            <div class="col-11 event-card-content">
+            <div class="col-10 event-card-content">
                 <a href="{{ event.get_absolute_url }}">
                     <div class="row">
                         <div class="col-6">
@@ -51,18 +30,16 @@
                     </div>
                 </a>
             </div>
-            <div class="col-1">
+            <div class="col-2">
                 <div class="row">
-                <button type="button" class="cleared" data-bs-toggle="modal" data-bs-target="#deleteEventModal{{ forloop.counter0 }}">
-                    <i class="fa-regular fa-circle-xmark icon xmark"></i>
-                </button>
+                    {% include "reminders_app/buttons/remove_button.html" %}
                 </div>
-                <div class="row align-self-end">
-                    <a href="{% url "reminders_app:edit_event" event_id=event.id event_slug=event.slug %}">
-                <button type="button" class="cleared">
-                    <i class="fa-solid fa-file-pen icon"></i>
-                </button>
-                    </a>
+                <div class="row align-items-center">
+                    {% include "reminders_app/buttons/edit_button.html" %}
+                </div>
+                <div class="row">
+                    <!-- TODO -->
+                    {% include "reminders_app/buttons/done_button.html" %}
                 </div>
             </div>
         </div>

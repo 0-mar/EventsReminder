@@ -5,7 +5,16 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container content-container">
+    {% include "reminders_app/modals/remove_event_modal.html" %}
+
+
+    <div class="container event-card">
+        <div class="col-12 text-end py-2">
+            {% include "reminders_app/buttons/back_button.html" %}
+            {% include "reminders_app/buttons/remove_button.html" %}
+            {% include "reminders_app/buttons/edit_button.html" %}
+            {% include "reminders_app/buttons/done_button.html" %}
+        </div>
         <div class="col-12 text-center">
             <h1>{{ event.title }}</h1>
         </div>
