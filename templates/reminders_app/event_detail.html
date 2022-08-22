@@ -19,9 +19,9 @@
             <h1>{{ event.title }}</h1>
         </div>
         <div class="col-12">
-            <h2>{{ event.date }},
+            <h2>{{ event.date|date:"l j. n. Y" }},
                 {% if event.time %}
-                    {{ event.time }}
+                    {{ event.time|date:"G:i" }}
                 {% endif %}
             </h2>
         </div>

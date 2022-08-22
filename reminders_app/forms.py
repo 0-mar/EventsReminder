@@ -1,5 +1,5 @@
 from django.contrib.auth.forms import AuthenticationForm
-from django.forms import ModelForm
+from django.forms import ModelForm, SelectDateWidget, TimeInput
 
 from .models import Events
 
@@ -22,3 +22,7 @@ class EventForm(ModelForm):
     class Meta:
         model = Events
         fields = ['title', 'description', 'date', 'time']
+        widgets = {
+            'date': SelectDateWidget(),
+            'time': TimeInput(attrs={'type': 'time'})
+        }

@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 from slugify import slugify
+import datetime
 
 from .models import Events
 from .forms import EventForm

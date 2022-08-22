@@ -8,7 +8,7 @@ class Events(models.Model):
     slug = models.CharField(max_length=255, unique_for_date='date')
     description = models.TextField()
     date = models.DateField()
-    time = models.TimeField(null=True)  # optional field!
+    time = models.TimeField(null=True, blank=True)  # optional field (null and blank must be set to true)!
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def get_absolute_url(self):
