@@ -11,9 +11,10 @@ from .forms import EventForm
 
 @login_required
 def index(request):
-    all_events = Events.objects.all()
+    today = datetime.date.today()
+    all_events = Events.objects.all().filter(user=request.user)
 
-    return render(request, 'reminders_app/index.html', {"events": all_events})
+    return render(request, 'reminders_app/index.html', {"events": all_events, "today_date": today})
 
 
 @login_required

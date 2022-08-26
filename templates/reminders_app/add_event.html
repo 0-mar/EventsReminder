@@ -6,6 +6,9 @@
 
 {% block content %}
     <div class="container content-container">
+        <div class="col-12 text-end py-2">
+            {% include "reminders_app/buttons/back_button.html" %}
+        </div>
         <form method="post">
             {% csrf_token %}
             {{ event_form.as_p }}

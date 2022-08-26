@@ -11,6 +11,9 @@ class Events(models.Model):
     time = models.TimeField(null=True, blank=True)  # optional field (null and blank must be set to true)!
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    class Meta:
+        ordering = ["date"]
+
     def get_absolute_url(self):
         """Used for reverse URL resolution. Returns URL of Event detail view (page) with corresponding event, based
         on the given slug (each slug corresponds with an Events record in DB).

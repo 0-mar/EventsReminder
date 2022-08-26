@@ -9,7 +9,7 @@
 
     <div class="container">
     {% for event in events %}
-        <div class="row event-card">
+        <div class="row my-3 event-card {% if today_date > event.date %}red-border{% endif %}">
             <div class="col-10 event-card-content">
                 <a href="{{ event.get_absolute_url }}">
                     <div class="row">
