@@ -1,7 +1,7 @@
-<form action="{% url "reminders_app:complete_event" %}" method="post">
+<form action="{% url "reminders_app:undo_event" %}" method="post">
     {% csrf_token %}
     <input type="hidden" id="eventId" name="event_id" value="{{ event.id }}">
     <button type="submit" class="cleared">
-        <i class="fa-solid fa-circle-check icon"></i>Done
+        <i class="fa-solid fa-arrow-rotate-left icon"></i>Undo event
     </button>
 </form>

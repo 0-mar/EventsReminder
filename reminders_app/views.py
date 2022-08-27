@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.views.generic import ListView, View
+from django.utils.decorators import method_decorator
 
 from slugify import slugify
 import datetime
@@ -12,7 +14,7 @@ from .forms import EventForm
 @login_required
 def index(request):
     today = datetime.date.today()
-    all_events = Events.objects.all().filter(user=request.user)
+    all_events = Events.uncompleted_events.filter(user=request.user)
 
     return render(request, 'reminders_app/index.html', {"events": all_events, "today_date": today})
 
@@ -86,3 +88,52 @@ def edit_event(request, event_id, event_slug):
     else:
         event_form = EventForm(instance=evt)
         return render(request, 'reminders_app/edit_event.html', {"event_form": event_form})
+
+
+@login_required
+def complete_event(request):
+    if request.method == "POST":
+        event_id = request.POST["event_id"]
+        event = Events.objects.get(pk=event_id, user=request.user)
+        event.completed = True
+        event.save()
+        messages.success(request, 'Event was completed.')
+
+        return redirect("reminders_app:index")
+
+
+@method_decorator(login_required, name='dispatch')
+class UpcomingEventsListView(ListView):
+    template_name = 'reminders_app/events_list/upcoming_events.html'
+    context_object_name = 'events'
+
+    def get_queryset(self):
+        return Events.uncompleted_events.filter(user=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add in current date
+        context['today_date'] = datetime.date.today()
+        return context
+
+
+@method_decorator(login_required, name='dispatch')
+class DoneEventsListView(ListView):
+    template_name = 'reminders_app/events_list/done_events.html'
+    context_object_name = 'events'
+
+    def get_queryset(self):
+        return Events.done_events.filter(user=self.request.user)
+
+
+@method_decorator(login_required, name='dispatch')
+class UndoEventView(View):
+    def post(self, request, *args, **kwargs):
+        event_id = request.POST["event_id"]
+        event = Events.done_events.get(pk=event_id, user=request.user)
+        event.completed = False
+        event.save()
+        messages.success(request, 'Event was moved to uncompleted.')
+
+        return redirect("reminders_app:done_events")

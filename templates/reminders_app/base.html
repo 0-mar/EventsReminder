@@ -22,6 +22,8 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <div class="navbar-nav ps-5">
+                        <a class="nav-link active" href="{% url "reminders_app:index" %}" style="color: gray">Upcoming events</a>
+                        <a class="nav-link" href="{% url "reminders_app:done_events" %}" style="color: gray">Done events</a>
                         <a class="nav-link navbar-btn rounded" href="{% url "reminders_app:add_event" %}">Add Event</a>
                     </div>
                     <div class="navbar-nav ms-auto">

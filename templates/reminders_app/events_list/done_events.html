@@ -1,0 +1,19 @@
+{% extends "reminders_app/events_list/card_list.html" %}
+
+{% block title %}Done events{% endblock %}
+
+{% block card_class %}
+    done-event
+{% endblock %}
+
+{% block toolbox %}
+    <div class="row">
+        {% include "reminders_app/buttons/remove_button.html" %}
+    </div>
+    <div class="row align-items-center">
+        {% include "reminders_app/buttons/edit_button.html" %}
+    </div>
+    <div class="row">
+        {% include "reminders_app/buttons/undo_event_button.html" %}
+    </div>
+{% endblock %}

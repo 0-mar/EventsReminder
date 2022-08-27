@@ -3,6 +3,16 @@ from django.contrib.auth.models import User
 from django.shortcuts import reverse
 
 
+class UncompletedEventsManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(completed=False)
+
+
+class DoneEventsManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(completed=True)
+
+
 class Events(models.Model):
     title = models.CharField(max_length=255)
     slug = models.CharField(max_length=255, unique_for_date='date')
@@ -10,6 +20,12 @@ class Events(models.Model):
     date = models.DateField()
     time = models.TimeField(null=True, blank=True)  # optional field (null and blank must be set to true)!
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    completed = models.BooleanField(default=False)
+
+    # managers
+    objects = models.Manager()  # default manager
+    uncompleted_events = UncompletedEventsManager()
+    done_events = DoneEventsManager()
 
     class Meta:
         ordering = ["date"]

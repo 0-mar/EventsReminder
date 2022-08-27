@@ -82,3 +82,12 @@ button.cleared {
 .icon.xmark:hover {
     color: #d60909;
 }
+
+.active {
+    border-bottom: solid gray 3px;
+
+}
+
+.done-event {
+    border-color: limegreen;
+}

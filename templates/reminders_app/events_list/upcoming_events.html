@@ -1,0 +1,19 @@
+{% extends "reminders_app/events_list/card_list.html" %}
+
+{% block title %}Upcoming events{% endblock %}
+
+{% block card_class %}
+    {% if today_date > event.date %}red-border{% endif %}
+{% endblock %}
+
+{% block toolbox %}
+    <div class="row">
+        {% include "reminders_app/buttons/remove_button.html" %}
+    </div>
+    <div class="row align-items-center">
+        {% include "reminders_app/buttons/edit_button.html" %}
+    </div>
+    <div class="row">
+        {% include "reminders_app/buttons/done_button.html" %}
+    </div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "reminders_app/base.html" %}
+
+{% block content %}
+    {% include "reminders_app/modals/remove_event_modal.html" %}
+
+    <div class="container">
+        {% for event in events %}
+            <div class="row my-3 event-card {% block card_class %}{% endblock %}">
+                <div class="col-10 event-card-content">
+                    <a href="{{ event.get_absolute_url }}">
+                        <div class="row">
+                            <div class="col-6">
+                                <h2>{{ event.title }}</h2>
+                            </div>
+                            <div class="col">
+                                <h2>{{ event.date|date:"j. n. Y" }}</h2>
+                            </div>
+                            {% if event.time %}
+                                <div class="col">
+                                    <h2>{{ event.time|date:"G:i" }}</h2>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="row pt-3">
+                            {{ event.description|truncatewords:30|linebreaks }}
+                        </div>
+                    </a>
+                </div>
+                <div class="col-2">
+                    {% block toolbox %}{% endblock %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
