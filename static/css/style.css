@@ -3,6 +3,7 @@
     --main-bg-color: #1F4690;
     --secondary-bg-color: #231955;
     --btn-bg-color: #E8AA42;
+    --btn-border-color: #d49339; /* #c48731 */
 }
 
 body {
@@ -15,7 +16,9 @@ a {
 
 .navbar-btn {
     background-color: var(--btn-bg-color);
-    color: black !important;
+    border-color: var(--btn-border-color) !important;
+
+    color: black;
 }
 
 
@@ -83,11 +86,30 @@ button.cleared {
     color: #d60909;
 }
 
-.active {
-    border-bottom: solid gray 3px;
+.link {
+    color: gray;
+}
 
+.active-link {
+    border-bottom: solid white 3px;
+    color: white;
 }
 
 .done-event {
     border-color: limegreen;
+}
+
+.btn-bd-primary {
+    --bs-btn-font-weight: 600;
+    --bs-btn-color: var(--bs-white);
+    --bs-btn-bg: var(--bd-violet);
+    --bs-btn-border-color: var(--bd-violet);
+    --bs-btn-border-radius: .5rem;
+    --bs-btn-hover-color: var(--bs-white);
+    --bs-btn-hover-bg: #{shade-color($bd-violet, 10%)};
+    --bs-btn-hover-border-color: #{shade-color($bd-violet, 10%)};
+    --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+    --bs-btn-active-color: var(--bs-btn-hover-color);
+    --bs-btn-active-bg: #{shade-color($bd-violet, 20%)};
+    --bs-btn-active-border-color: #{shade-color($bd-violet, 20%)};
 }
